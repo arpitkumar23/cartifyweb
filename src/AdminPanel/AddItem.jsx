@@ -37,7 +37,7 @@ const AddItem = () => {
     }
  
     axios
-      .get("http://localhost:8000/api/admin-auth", {
+      .get("https://back-y9z8.onrender.com/api/admin-auth", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -197,3 +197,4 @@ const AddItem = () => {
 }; 
 
 export default AddItem;
+
