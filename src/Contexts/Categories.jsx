@@ -1,40 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom"; // import Link for routing
-
-const categories = [
-  {
-    name: "Watch",
-    products: "12 Products",
-    img: "https://m.media-amazon.com/images/G/31/img21/Watches2025/May/PremiumStore/Men/Multiclick/The_Watchlist_Final2._CB794031169_UC343,180_.png",
-  },
-  {
-    name: "Fashionable",
-    products: "8 Products",
-    img: "https://down-ph.img.susercontent.com/file/e37b7117bcd15bc585ce4f788a8c6a34",
-  },
-  {
-    name: "Ethnic Wear",
-    products: "6 Products",
-    img: "https://tse2.mm.bing.net/th/id/OIP.C7AoxSqZsrcd2_9LmEs5wAHaJ2?cb=12&w=660&h=878&rs=1&pid=ImgDetMain&o=7&rm=3",
-  },
-  {
-    name: "Goggles",
-    products: "10 Products",
-    img: "https://tse1.mm.bing.net/th/id/OIP.DGf1w5gzXdGeS-FCJ5PQkQHaEj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-  },
-  {
-    name: "Side Bag",
-    products: "4 Products",
-    img: "https://tse2.mm.bing.net/th/id/OIP.nw_F-OsrI4GepcXxRmBnRwHaI4?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-  },
-  {
-    name: "Shoes",
-    products: "5 Products",
-    img: "https://tse3.mm.bing.net/th/id/OIP.UGFdpLPDJqKMWN5Bl-KdtQHaFo?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "../css/category.css";
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get("https://back-y9z8.onrender.com/api/list-product");
+        const products = Array.isArray(res.data) ? res.data : res.data.data;
+
+        // ✅ Get unique categories with a sample product image
+        const uniqueCategories = [...new Set(products.map(p => p.category))].map(cat => {
+          const sampleProduct = products.find(p => p.category === cat);
+          return {
+            name: cat,
+            img: sampleProduct?.image?.[0] || "/placeholder.jpg",
+            count: products.filter(p => p.category === cat).length,
+          };
+        });
+
+        setCategories(uniqueCategories);
+      } catch (err) {
+        console.error("Failed to fetch categories:", err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <div className="categories-section">
       <h2 className="title">Best For Your Categories</h2>
@@ -43,22 +39,28 @@ const Categories = () => {
       </p>
 
       <div className="categories-grid">
-        {categories.map((cat, index) => (
-          <Link
-             to="/Collection" 
-            className="category-card"
-            key={index}
-          >
-            <div className="image-container">
-              <img src={cat.img} alt={cat.name} />
-            </div>
-            <h3>{cat.name}</h3>
-            <p>{cat.products}</p>
-          </Link>
-        ))}
+        {categories.length > 0 ? (
+          categories.map((cat, index) => (
+            <Link
+  key={index}
+  to={`/category/${encodeURIComponent(cat.name)}`}
+  className="category-card"
+>
+  <div className="image-container">
+    <img src={cat.img} alt={cat.name} />
+  </div>
+  <h3>{cat.name}</h3>
+  <p>{cat.count} Products</p>
+</Link>
+
+          ))
+        ) : (
+          <p>Loading categories...</p>
+        )}
       </div>
     </div>
   );
 };
 
 export default Categories;
+
