@@ -707,7 +707,7 @@
   border: 1px solid #ddd;
   border-radius: 25px;
   padding: 5px 10px;
-  width: 100%;
+  width: 300px;
   max-width: 400px;
   margin: 10px auto;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -4031,3 +4031,4 @@ button:hover {
   color: #888;
   font-size: 0.85rem;
 }
+
