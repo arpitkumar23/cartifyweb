@@ -1613,7 +1613,7 @@ button:hover {
   }
 
   .admin-sidebar {
-    width: 100%;
+    width: 89%;
     text-align: center;
   }
 
@@ -4031,4 +4031,5 @@ button:hover {
   color: #888;
   font-size: 0.85rem;
 }
+
 
