@@ -47,11 +47,16 @@ const Products = () => {
 
   // Auth-aware Add to Cart
   const handleAddToCart = () => {
-    if (!user) {
-      toast.error("Please login to add items to cart!");
-      navigate("/login"); // Redirect to login
-      return;
-    }
+  if (!user) {
+  toast.error("Please login to add items to cart!");
+  navigate("/login");
+  return;
+}
+
+if (user.role === 1) {
+  toast.error("You are an admin, you cannot add items to cart!");
+  return;
+}
 
     if (!selectedSize) {
       toast.error("Please select a size before adding to cart ✅");
@@ -161,3 +166,4 @@ const Products = () => {
 };
 
 export default Products;
+
