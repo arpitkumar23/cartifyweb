@@ -13,8 +13,7 @@ import PlaceOrder from './header/PlaceOrder'
 import Order from './header/Order'
 import Login from './header/Login'
 import AdminPanel from './AdminPanel/AdminPanel'
-import AddItem from './AdminPanel/AddItem'
-import Watch from './Contexts/Watch'
+import AddItem from './AdminPanel/AddItem' 
 import ListItem from './AdminPanel/ListItem ' 
 import AdminLogin from './AdminPanel/AdminLogin'
 import Profile from './userPanel/Profile'
@@ -43,8 +42,7 @@ function App() {
           <Route path="/adminPanel/list-item" element={ <ListItem /> } />
           <Route path="/adminPanel/order" element={ <Orders /> } />
           <Route path="*" element={ <h1 className='not-found'>404 Not Found</h1> } />
-          <Route path="/profile" element={ <Profile /> } />
-          <Route path='/category/:categoryName' element={ <Watch /> } />
+          <Route path="/profile" element={ <Profile /> } /> 
         </Routes>
         <Footer />
       </div>
