@@ -43,6 +43,7 @@ function App() {
           <Route path="/adminPanel/order" element={ <Orders /> } />
           <Route path="*" element={ <h1 className='not-found'>404 Not Found</h1> } />
           <Route path="/profile" element={ <Profile /> } />
+          <Route path='/category/:categoryName' element={ <Watch /> } />
         </Routes>
         <Footer />
       </div>
