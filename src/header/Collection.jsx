@@ -70,37 +70,37 @@ const Collection = () => {
 
         <div className="filter-section">
           <h4>Category</h4>
-          { categories.map((cat) => (
-            <label key={ cat }>
+          {categories.map((cat) => (
+            <label key={cat}>
               <input
                 type="checkbox"
-                checked={ selectedCategories.includes(cat) }
-                onChange={ () => toggleCategory(cat) }
+                checked={selectedCategories.includes(cat)}
+                onChange={() => toggleCategory(cat)}
               />
-              { cat }
+              {cat}
             </label>
-          )) }
+          ))}
         </div>
 
         <div className="filter-section">
           <h4>Sub Category</h4>
-          { subCategories.map((sub) => (
-            <label key={ sub }>
+          {subCategories.map((sub) => (
+            <label key={sub}>
               <input
                 type="checkbox"
-                checked={ selectedSubCategories.includes(sub) }
-                onChange={ () => toggleSubCategory(sub) }
+                checked={selectedSubCategories.includes(sub)}
+                onChange={() => toggleSubCategory(sub)}
               />
-              { sub }
+              {sub}
             </label>
-          )) }
+          ))}
         </div>
       </div>
 
       <div className="product-grid">
         <div className="grid-header">
           <h3>ALL PRODUCTS</h3>
-          <select value={ sortOption } onChange={ (e) => setSortOption(e.target.value) }>
+          <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
             <option value="">Sort By</option>
             <option value="price-asc">Price: Low to High</option>
             <option value="price-desc">Price: High to Low</option>
@@ -108,27 +108,29 @@ const Collection = () => {
             <option value="name-desc">Name: Z to A</option>
           </select>
         </div>
-
-        { filteredProducts.length > 0 ? (
+ 
+        {filteredProducts.length > 0 && (
           <div className="product-list">
-            { filteredProducts.map((product) => (
+            {filteredProducts.map((product) => (
               <Link
-                key={ product._id }
-                to={ `/products/${product._id}` }
+                key={product._id}
+                to={`/products/${product._id}`}
                 className="product-card"
               >
                 <img
-                  src={ product.image && product.image[0] ? product.image[0] : "/placeholder.jpg" }
-                  alt={ product.name }
+                  src={
+                    product.image && product.image[0]
+                      ? product.image[0]
+                      : "/placeholder.jpg"
+                  }
+                  alt={product.name}
                 />
-                <h4>{ product.name }</h4>
-                <p>₹{ product.price }</p>
+                <h4>{product.name}</h4>
+                <p>₹{product.price}</p>
               </Link>
-            )) }
+            ))}
           </div>
-        ) : (
-          <p>No products found.</p>
-        ) }
+        )}
       </div>
     </div>
   );
